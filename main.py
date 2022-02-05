@@ -1,6 +1,8 @@
+from operator import mod
 from bs4 import BeautifulSoup
 import bs4
 import requests
+from tabulate import tabulate
 
 class Person:
     def __init__(self, name="", title="", home_unit=""):
@@ -65,16 +67,24 @@ public_policy = []
 
 for person in people:
     if person.home_unit == "Center for Advanced Communications Policy":
-        center_adv_coms.append(person)
+        center_adv_coms.append(person.__dict__)
     elif person.home_unit == "School of Economics":
-        economics.append(person)
+        economics.append(person.__dict__)
     elif person.home_unit == "School of History and Sociology":
-        hist_soc.append(person)
+        hist_soc.append(person.__dict__)
     elif person.home_unit == "School of International Affairs":
-        intl_affairs.append(person)
+        intl_affairs.append(person.__dict__)
     elif person.home_unit == "School of Literature, Media, and Communication":
-        literature.append(person)
+        literature.append(person.__dict__)
     elif person.home_unit == "School of Modern Languages":
-        modern_languages.append(person)
+        modern_languages.append(person.__dict__)
     else:
-        public_policy.append(person)
+        public_policy.append(person.__dict__)
+
+print(tabulate(center_adv_coms))
+print(tabulate(economics))
+print(tabulate(hist_soc))
+print(tabulate(intl_affairs))
+print(tabulate(literature))
+print(tabulate(modern_languages))
+print(tabulate(public_policy))
