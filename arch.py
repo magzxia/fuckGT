@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import csv
+from tabulate import tabulate
 
 class Person:
     def __init__(self, name="", title="", home_unit=""):
@@ -23,9 +23,4 @@ for elem in soup.find_all(filter("div", "class", "profile-card")):
         person.title = title_data.text
     people.append(person.__dict__)
 
-with open("architecture.csv", "w") as file:
-    fieldnames = ["name", "title"]
-    writer = csv.DictWriter(file, fieldnames=fieldnames)
-    writer.writeheader()
-    for person in people:
-        writer.writerow(person)
+print(tabulate(people, tablefmt="pretty"))

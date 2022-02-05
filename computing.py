@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import csv
+from tabulate import tabulate
 
 class Person:
     def __init__(self, name="", title="", home_unit=""):
@@ -34,11 +34,3 @@ cyber_sec = req(3, 292, "School of Cybersecurity and Privacy")
 int_computing = req(8, 205, "School of Interactive Computing")
 
 units = [compute_inst, compute_sci_and_engineering, comp_sci, cyber_sec, int_computing]
-
-with open("computing.csv", "w") as file:
-    fieldnames = ["name", "title", "home_unit"]
-    writer = csv.DictWriter(file, fieldnames=fieldnames)
-    writer.writeheader()
-    for unit in units:
-        for row in unit:
-            writer.writerow(row)
