@@ -39,19 +39,42 @@ def home_unit_filter(tag:bs4.Tag) -> bool:
     else:
         return False
 
-people = []
+#Getting all the faculty members
+people: list[Person] = []
 for elem in soup.find_all(li_filter):
     person = Person()
     for name_raw in elem.find_all(name_filter):
         person.name = name_raw.text
 
     for title_raw in elem.find_all(title_filter):
-        person.title = title_raw.text
+        person.title = title_raw.text.replace("Title: ", "")
     
     for home_unit_raw in elem.find_all(home_unit_filter):
-        person.home_unit = home_unit_raw.text
+        person.home_unit = home_unit_raw.text.replace("Home Unit: ", "")
         
     people.append(person)
 
+#filtering by home_unit
+center_adv_coms = []
+economics = []
+hist_soc = []
+intl_affairs = []
+literature = []
+modern_languages = []
+public_policy = []
+
 for person in people:
-    print(person.__dict__)
+    if person.home_unit == "Center for Advanced Communications Policy":
+        center_adv_coms.append(person)
+    elif person.home_unit == "School of Economics":
+        economics.append(person)
+    elif person.home_unit == "School of History and Sociology":
+        hist_soc.append(person)
+    elif person.home_unit == "School of International Affairs":
+        intl_affairs.append(person)
+    elif person.home_unit == "School of Literature, Media, and Communication":
+        literature.append(person)
+    elif person.home_unit == "School of Modern Languages":
+        modern_languages.append(person)
+    else:
+        public_policy.append(person)
