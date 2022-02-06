@@ -15,6 +15,7 @@ def wrap(string: str):
     return string[:limit] + "\n" + string[limit:limit*2] + "\n" + string[(limit*2):]
 
 
+
 resp = requests.get("https://biosciences.gatech.edu/people?field_last_name_value=&field_job_category_tid=All")
 soup = BeautifulSoup(resp.content, "html.parser")
 
@@ -27,6 +28,7 @@ for elem in soup.find_all(filter("li", "class", "biosci-people-cell")):
         if len(title_data.text) > 100:
             person.title = wrap(title_data.text)
             break
+        person.title = title_data.text
         person.title = title_data.text
     if person.title == "":
         continue
