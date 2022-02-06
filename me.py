@@ -18,10 +18,10 @@ def req(pages) -> list:
 
         for elem in soup.find_all(filter("div", "class", "faculty__user-details")):
             person = Person()
-            for name_data in elem.find_all(filter("a", "href", "/faculty/")):
-                person.name = name_data.text
+            for name_data in elem.find_all(filter("div", "class", "faculty-name")):
+                person.name = name_data.text.strip()
             for title_data in elem.find_all(filter("div", "class", "faculty-title")):
-                person.title = title_data.text
+                person.title = title_data.text.strip()
 
             lst.append(person.__dict__)
     return lst
