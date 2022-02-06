@@ -28,8 +28,8 @@ def req(pages) -> list:
             for title_data in elem.find_all(filter("div", "class", "faculty-title")):
                 if len(title_data.text) > 100:
                     person.title = wrap(title_data.text)
-            break
-        person.title = title_data.text.strip()
+                    break
+                person.title = title_data.text.strip()
 
         lst.append(person.__dict__)
         return lst
