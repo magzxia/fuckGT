@@ -15,20 +15,15 @@ resp = requests.get("https://ae.gatech.edu/people?field_lab_collaborations_tid=A
 soup = BeautifulSoup(resp.content, "html.parser")
 
 people = []
-for elem in soup.find_all(filter("div", "class", "view-content")):
+for elem in soup.find_all(filter("div", "class", "views-row")):
     person = Person()
     for name_data in elem.find_all(filter("a", "href", "/people/")):
-        if name_data.text != "View Full Profile":
-            person.name = name_data.text
-            print (person.name)
-    for title_data in elem.find_all(filter("div", "class", "field-content")):
-        hasDigit = True
-        for char in title_data.text:
-            if char.isdigit():
-                hasDigit = False
-        if hasDigit and title_data.text != "":
-            person.title = title_data.text 
-            print(person.title)   
-
+        if "View Full Profile" in name_data.text:
+            continue
+        person.name = name_data.text
+    
+    for title_data in elem.find_all(filter("div", "class", "views-field-field-job-title")):
+        person.title = title_data.text 
+    
     people.append(person.__dict__)
 print(tabulate(people, tablefmt="grid"))
