@@ -28,9 +28,9 @@ def req(pages, id, home) -> list:
                 person.name = name_data.text
             for title_data in elem.find_all(filter("div", "class", "views-field-field-job-title")):
                 if len(title_data.text) > 100:
-            person.title = wrap(title_data.text)
-            break
-        person.title = title_data.text
+                    person.title = wrap(title_data.text)
+                    break
+                person.title = title_data.text
 
             lst.append(person.__dict__)
     return lst
