@@ -18,9 +18,9 @@ people = []
 for elem in soup.find_all(filter("li", "class", "biosci-people-cell")):
     person = Person()
     for name_data in elem.find_all(filter("span", "class", "p-name")):
-        person.name = name_data.text
+        person.name = name_data.text.strip()
     for title_data in elem.find_all(filter("span", "class", "p-job-title")):
-        person.title = title_data.text
+        person.title = title_data.text.strip()
     if person.title == "":
         continue
     people.append(person.__dict__)

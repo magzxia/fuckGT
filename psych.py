@@ -11,19 +11,16 @@ def filter(element, attr, search):
     return lambda tag: tag.name == element and attr in tag.attrs and search in tag[attr]
 
 
-resp = requests.get("https://eas.gatech.edu/people")
+resp = requests.get("https://psychology.gatech.edu/people")
 soup = BeautifulSoup(resp.content, "html.parser")
 
 people = []
-for elem in soup.find_all(filter("li", "class", "eas-people-cell")):
+for elem in soup.find_all(lambda tag: tag.name == "tr"):
     person = Person()
-    for name_data in elem.find_all(filter("span", "class", "p-name")):
+    for name_data in elem.find_all(filter("a", "href", "/people/")):
         person.name = name_data.text.strip()
-    for title_data in elem.find_all(filter("span", "class", "p-job-title")):
+    for title_data in elem.find_all(filter("td", "class", "views-field-field-research-area")):
         person.title = title_data.text.strip()
-    print(f"{person.name} {person.title}")
-    if person.title == "Graduate Student" or person.title == "":
-        continue
     people.append(person.__dict__)
 
 print(tabulate(people, tablefmt="grid"))
