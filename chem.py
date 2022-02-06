@@ -11,7 +11,7 @@ def filter(element, attr, search):
     return lambda tag: tag.name == element and attr in tag.attrs and search in tag[attr]
 
 
-resp = requests.get("https://biosciences.gatech.edu/people?field_last_name_value=&field_job_category_tid=All")
+resp = requests.get("https://chemistry.gatech.edu/directory/all")
 soup = BeautifulSoup(resp.content, "html.parser")
 
 people = []
