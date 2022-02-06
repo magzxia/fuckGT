@@ -1,5 +1,3 @@
-from re import L
-from turtle import title
 from bs4 import BeautifulSoup
 import requests
 from tabulate import tabulate
