@@ -17,18 +17,16 @@ soup = BeautifulSoup(resp.content, "html.parser")
 people = []
 for elem in soup.find_all(lambda tag: tag.name == "tr"):
     person = Person()
-    nameStr = ""
     for name_data in elem.find_all(filter("td", "class", "views-field-field-first-name")):
-        person.name = name_data.text
-        nameStr += person.name
+        person.name = name_data.text.strip() + " "
     for name_data in elem.find_all(filter("td", "class", "views-field-field-last-name")):
-        person.name = name_data.text
-        nameStr += person.name
+        person.name += name_data.text.strip()
     for title_data in elem.find_all(filter("td", "class", "views-field-field-title")):
-        person.title = title_data.text
+        person.title = title_data.text.strip()
+    
+    print(f"{person.name} {person.title}")
     if person.title == "Graduate Student":
         continue
-    person.name = nameStr 
     people.append(person.__dict__)
 
 print(tabulate(people, tablefmt="grid"))
