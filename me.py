@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from tabulate import tabulate
+import csv
 
 class Person:
     def __init__(self, name="", title=""):
@@ -26,14 +26,17 @@ def req(pages) -> list:
             for name_data in elem.find_all(filter("div", "class", "faculty-name")):
                 person.name = name_data.text.strip()
             for title_data in elem.find_all(filter("div", "class", "faculty-title")):
-                if len(title_data.text) > 100:
-                    person.title = wrap(title_data.text)
-                    break
                 person.title = title_data.text.strip()
 
-        lst.append(person.__dict__)
+            lst.append(person.__dict__)
         return lst
 
 
 people = req(12)
-print(tabulate(people, tablefmt="grid"))
+with open("me.csv", "w") as file:
+    fieldnames = ["name", "title"]
+    writer = csv.DictWriter(file, fieldnames=fieldnames)
+    writer.writeheader()
+    for person in people:
+        print(people)
+        writer.writerow(person)
