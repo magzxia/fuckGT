@@ -25,7 +25,7 @@ for elem in soup.find_all(lambda tag: tag.name == "tr"):
         person.title = title_data.text.strip()
     
     print(f"{person.name} {person.title}")
-    if person.title == "Graduate Student":
+    if person.title == "Graduate Student" or person.title == "":
         continue
     people.append(person.__dict__)
 
