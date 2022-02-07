@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from tabulate import tabulate
+import csv
 
 class Person:
     def __init__(self, name="", title="", home_unit=""):
@@ -37,4 +37,9 @@ for elem in soup.find_all(lambda tag: tag.name == "tr"):
         continue
     people.append(person.__dict__)
 
-print(tabulate(people, tablefmt="grid"))
+with open("chem.csv", "w") as file:
+    fields = ["name", "title"]
+    writer = csv.DictWriter(file, fieldnames=fields)
+    writer.writeheader()
+    for person in people:
+        writer.writerow(person)

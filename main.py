@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import bs4
 import requests
-from tabulate import tabulate
+import csv
 
 class Person:
     def __init__(self, name="", title="", home_unit=""):

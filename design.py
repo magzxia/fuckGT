@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from tabulate import tabulate
+import csv
 
 class Person:
     def __init__(self, name="", title="", home_unit=""):
@@ -31,4 +31,3 @@ for elem in soup.find_all(filter("div", "class", "profile-card")):
         person.title = title_data.text
     people.append(person.__dict__)
 
-print(tabulate(people, tablefmt="grid"))

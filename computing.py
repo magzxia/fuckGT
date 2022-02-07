@@ -22,11 +22,11 @@ def req(pages, id, home) -> list:
         resp = requests.get(f"https://www.cc.gatech.edu/index.php/people/faculty?field_person_school_target_id[{id}]={id}&page={i}")
         soup = BeautifulSoup(resp.content, "html.parser")
 
-        for elem in soup.find_all(filter("div", "class", "field-content")):
+        for elem in soup.find_all(filter("div", "class", "profile-card__content")):
             person = Person(home_unit=home)
             for name_data in elem.find_all(filter("a", "href", "/people/")):
                 person.name = name_data.text
-            for title_data in elem.find_all(filter("div", "class", "views-field-field-job-title")):
+            for title_data in elem.find_all(filter("h6", "class", "card-block__subtitle")):
                 person.title = title_data.text
 
             lst.append(person.__dict__)
